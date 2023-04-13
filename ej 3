@@ -1,0 +1,73 @@
+#include <stdlib.h>
+#include <stdio.h>
+
+#define MAX_SIZE 1000
+
+static void dump(char a[], unsigned int length) {
+    printf("\"");
+    for (unsigned int j=0u; j < length; j++) {
+        printf("%c", a[j]);
+    }
+    printf("\"");
+    printf("\n\n");
+}
+
+
+
+char *parse_filepath(int argc, char *argv[]) {
+    /* Parse the filepath given by command line argument. */
+    char *result = NULL;
+
+    if (argc < 2) {
+        exit(EXIT_FAILURE);
+    }
+
+    result = argv[1];
+
+    return result;
+}
+
+unsigned int data_from_file(const char *path, unsigned int indexes[], char letters[], unsigned int max_size) {
+
+        unsigned int i = 0;
+        FILE *file = fopen(path, "r");
+
+        while(!feof(file) && i < max_size) { 
+            fscanf(file, "%u -> *%c*", &indexes[i], &letters[i]);
+            i = i + 1;
+        }
+        
+        fclose(file);
+
+        return i;
+}
+
+void ordena_palabra(unsigned int a[], char b[], char c[], unsigned int length) {
+    for (int i = 0; i < length; i++) {
+        if (a[i] == i) {
+            c[i] = b[i]; 
+        }
+    }
+}
+
+
+int main (int argc, char *argv[]) {
+    char *filepath = NULL;
+
+    /* parse the filepath given in command line arguments */
+    filepath = parse_filepath(argc, argv);
+
+    unsigned int indexes[MAX_SIZE];
+    char letters[MAX_SIZE];
+    char sorted[MAX_SIZE];
+    unsigned int length=0; 
+    
+    length = data_from_file(filepath, indexes, letters, MAX_SIZE);
+
+    //ordena_palabra(indexes, letters, sorted, length);
+
+    dump(letters, length);
+
+    return EXIT_SUCCESS;
+}
+
