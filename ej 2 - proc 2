@@ -1,0 +1,32 @@
+#include <stdlib.h>
+#include <stdio.h>
+
+void absolute(int x, int *y) {
+
+    if (x >= 0) {
+        *y = x;
+    } else {
+        *y = -x;
+    }
+
+}
+
+int main(void) {
+    int a=0, res=0;  // No modificar esta declaración
+
+    a = -10;
+    int *p = NULL;
+
+    p = &res;
+
+    absolute(a, p);
+
+    printf("%d\n", res);
+
+    // Ahora si se muestra el valor correcto, y hace lo mismo que el algoritmo del teorico
+
+    return EXIT_SUCCESS;
+}
+
+// El parametro int *y de absolute() es de tipo out
+// C tiene disponibles parametros de tipo "in" para sus funciones
