@@ -33,21 +33,13 @@ unsigned int data_from_file(const char *path, unsigned int indexes[], char lette
         FILE *file = fopen(path, "r");
 
         while(!feof(file) && i < max_size) { 
-            fscanf(file, "%u -> *%c*", &indexes[i], &letters[i]);
+            fscanf(file, "%u -> *%c*\n", &indexes[i], &letters[i]);
             i = i + 1;
         }
         
         fclose(file);
 
         return i;
-}
-
-void ordena_palabra(unsigned int a[], char b[], char c[], unsigned int length) {
-    for (int i = 0; i < length; i++) {
-        if (a[i] == i) {
-            c[i] = b[i]; 
-        }
-    }
 }
 
 
@@ -64,9 +56,12 @@ int main (int argc, char *argv[]) {
     
     length = data_from_file(filepath, indexes, letters, MAX_SIZE);
 
-    //ordena_palabra(indexes, letters, sorted, length);
 
-    dump(letters, length);
+    for (unsigned int i = 0u; i < length; i++) {
+        sorted[indexes[i]] = letters[i];
+    }
+
+    dump(sorted, length);
 
     return EXIT_SUCCESS;
 }
